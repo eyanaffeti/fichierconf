@@ -1,0 +1,21 @@
+eureka :
+  client :
+    serviceUrl :
+      defaultZone : http://localhost:9010/eureka
+
+spring :
+  cloud :
+    gateway :
+      routes : 
+        id: utilisateur
+        uri: lb://MSUser
+        predicates:
+        - Path = /user/**
+        filters:
+        - RewritePath=/user/(?<path>.*),/$\{path}
+        id: MS-Projet
+        uri: lb://MSProjet
+        predicates:
+        - Path = /projet/**
+        filters:
+        - RewritePath=/projet/(?<path>.*),/$\{path}
